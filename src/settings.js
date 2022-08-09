@@ -1,6 +1,6 @@
 module.exports = {
   // 项目名称
-  title: 'Vue Admin Template',
+  title: '人力资源管理平台',
 
   /**
    * @type {boolean} true | false
@@ -14,5 +14,5 @@ module.exports = {
    * @description Whether show the logo in sidebar
    */
   // 显示左侧菜单logo
-  sidebarLogo: false
+  sidebarLogo: true
 }
