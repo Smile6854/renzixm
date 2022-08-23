@@ -15,6 +15,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+// import { importFile } from '@/filters'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -64,7 +65,16 @@ export const constantRoutes = [
       meta: { title: '首页', icon: 'dashboard' }
     }]
   },
-
+  {
+    path: '/import',
+    component: Layout,
+    redirect: '/import',
+    hidden: true, // 不显示左侧菜单中
+    children: [{
+      path: '', // 甚末都不写表示默认的二级路由
+      component: () => import('@/views/import')
+    }]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]
