@@ -15,6 +15,7 @@
           >excel导入</el-button>
           <el-button size="small" type="danger" @click="exportData">excel导出</el-button>
           <el-button
+            :disabled="!checkPermission('POINT-USER-ADD')"
             size="small"
             icon="plus"
             type="primary"

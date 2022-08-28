@@ -1,6 +1,6 @@
 import { login, getUserInfo, getUserDetailById } from '@/api/user'
 import { getToken, setToken, removeToken, setTimeStamp } from '@/utils/auth'
-// import { userInfo } from 'os'
+import { resetRouter } from '@/router'
 // 状态
 const state = {
   token: getToken(), // 设置token为共享状态
@@ -52,6 +52,13 @@ const actions = {
     context.commit('removeToken')
     // 删除用户资料
     context.commit('removeUserInfo')
+    // 重置路由
+    resetRouter() // 重置路由
+    // 去设置权限模块下路由为初始状态
+    // vuex 子模块怎么调用子模块的action 都没加锁的情况下 可以随意调用
+    // 不加命名空间的情况下的 所有的mutations和 action 都是挂在全局上的 所以可以直接调用
+    // 但是加了命名空间的子模块 怎么调用另一个加了命名空间的子模块的mutations
+    context.commit('permission/setRoutes', [], { root: true })
   }
 }
 export default {

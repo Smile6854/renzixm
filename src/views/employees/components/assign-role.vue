@@ -57,6 +57,7 @@ export default {
       await assignRoles({ id: this.userId, roleIds: this.roleIds }) // 保存用户的角色
       //  关闭弹层
       this.$emit('update:showRoleDialog', false)
+      this.$message.success('保存成功')
     //   this.$parent.showRoleDialog = false
     },
     btnCancel() {

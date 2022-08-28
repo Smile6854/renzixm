@@ -77,7 +77,7 @@ import 'nprogress/nprogress.css'
 // next(false)跳转终止
 // next(地址) 跳转到某个地址
 const whiteList = ['/login', '/404'] // 定义白名单
-router.beforeEach(async(to, from, next) => {
+router.beforeEach(async function guard(to, from, next) {
   nprogress.start() // 开启进度条的意思
   if (store.getters.token) {
     // 如果有token
@@ -89,9 +89,26 @@ router.beforeEach(async(to, from, next) => {
       // 是每次都获取吗
       // 如果当前vuex 中有用户的资料的id 表示 已经有了资料 不需要获取了 如果没有id才需要获取
       if (!store.getters.userId) {
-        await store.dispatch('user/getUserInfo')
+        // 如果没有ID才表示当前用户资料没有获取过
+        // async函数所return的内容 用await就可以接收到
+        const { roles } = await store.dispatch('user/getUserInfo')
+        // 如果说后续 需要根据用户资料获取数据的话 这里必须改成 同步
+        // 筛选用户的可用路由
+        const routes = await store.dispatch(
+          'permission/filterRoutes',
+          roles.menus
+        ) // 筛选得到当前用户可用的动态路由
+        // routes就是筛选得到的动态路由
+        // console.log(routes)
+        router.addRoutes([
+          ...routes,
+          { path: '*', redirect: '/404', hidden: true }
+        ]) // 添加动态路由到路由表
+        // 添加完动态路由之后
+        next(to.path) // 相当于跳到对应的地址 相当于多做一次跳转
+      } else {
+        next()
       }
-      next()
     }
   } else {
     // 没有token 的情况下

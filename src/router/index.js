@@ -10,7 +10,7 @@ import attendancesRouter from './modules/attendances'
 import salarysRouter from './modules/salarys'
 import settingRouter from './modules/setting'
 import socialRouter from './modules/social'
-
+import userRouter from './modules/user'
 Vue.use(Router)
 
 /* Layout */
@@ -75,8 +75,9 @@ export const constantRoutes = [
       component: () => import('@/views/import')
     }]
   },
+  userRouter
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
 // 定义一个的动态路由变量
 export const asyncRoutes = [
@@ -93,7 +94,7 @@ export const asyncRoutes = [
 const createRouter = () => new Router({
   // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
-  routes: [...constantRoutes, ...asyncRoutes] // 静态路由和动态路由的临时合并
+  routes: [...constantRoutes] // 静态路由和动态路由的临时合并
 })
 
 const router = createRouter()

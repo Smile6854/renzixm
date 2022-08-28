@@ -8,6 +8,8 @@
     <!-- <breadcrumb class="breadcrumb-container" /> -->
 
     <div class="right-menu">
+      <!-- 放置全屏插件 -->
+      <ScreenFull class="right-menu-item" />
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img v-imagerror="defaultImg" :src="staffPhoto" class="user-avatar">
@@ -118,10 +120,11 @@ export default {
     .right-menu-item {
       display: inline-block;
       padding: 0 8px;
+      margin-right: 15px;
       height: 100%;
-      font-size: 18px;
+      font-size: 17px;
       color: #5a5e66;
-      vertical-align: text-bottom;
+      vertical-align: middle;
 
       &.hover-effect {
         cursor: pointer;
@@ -135,11 +138,9 @@ export default {
 
     .avatar-container {
       margin-right: 30px;
-
       .avatar-wrapper {
-        // margin-top: 5px;
+        // margin-top: -5px;
         position: relative;
-
         .user-avatar {
           cursor: pointer;
           width: 30px;
